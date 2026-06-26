@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1782452500001,
+    "cmd": "pwd",
+    "desc": "Show current directory"
+  },
+  {
+    "id": 1782452500002,
+    "cmd": "mkdir",
+    "desc": "Create new directory"
+  },
+  {
+    "id": 1782452500004,
+    "cmd": "touch FileName",
+    "desc": "Create empty file"
+  },
+  {
+    "id": 1782452500005,
+    "cmd": "cat > FileName",
+    "desc": "Create text file"
+  },
+  {
+    "id": 1782452500006,
+    "cmd": "cat FileName",
+    "desc": "View file content"
+  },
+  {
+    "id": 1782452500007,
+    "cmd": "cat File1 File2 > File3",
+    "desc": "Concatenate two files into a new file"
+  },
+  {
+    "id": 1782452500008,
+    "cmd": "cp file1 file2",
+    "desc": "Copy file (Source → Destination)"
+  },
+  {
+    "id": 1782452500009,
+    "cmd": "mv filename",
+    "desc": "Move or rename file"
+  },
+  {
+    "id": 1782452500010,
+    "cmd": "rm filename",
+    "desc": "Remove/Delete file"
+  },
+  {
+    "id": 1782452500011,
+    "cmd": "rmdir directory_name",
+    "desc": "Remove empty directory"
+  }
+]

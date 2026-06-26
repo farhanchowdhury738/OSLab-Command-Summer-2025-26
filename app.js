@@ -1,9 +1,9 @@
 /* ==========================================================
    1. GLOBAL VARIABLES
-   ========================================================== */
+========================================================== */
 
-// Local Storage Data
-let notes = JSON.parse(localStorage.getItem("notes")) || [];
+// Notes Loaded From Server
+let notes = [];
 
 // Current Editing Index
 let editIndex = -1;
@@ -11,6 +11,9 @@ let editIndex = -1;
 // Button Text
 const BTN_ADD = "Add";
 const BTN_UPDATE = "Update";
+
+// API URL
+const API_URL = "http://localhost:3000/notes";
 
 // DOM Elements
 const cmdInput = document.getElementById("cmd");
@@ -22,26 +25,37 @@ const formCard = document.getElementById("formCard");
 
 
 /* ==========================================================
-   2. LOCAL STORAGE
-   ========================================================== */
+   2. SERVER FUNCTIONS
+========================================================== */
 
-// Save Notes
-const save = () => {
+// Load All Notes
+async function loadNotes(){
 
-    localStorage.setItem(
-        "notes",
-        JSON.stringify(notes)
-    );
+    try{
 
-};
+        const response = await fetch(API_URL);
+
+        notes = await response.json();
+
+        render();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
 
 
 /* ==========================================================
-   3. FORM FUNCTIONS
-   ========================================================== */
+   3. FORM
+========================================================== */
 
 // Reset Form
-const clearForm = () => {
+function clearForm(){
 
     cmdInput.value = "";
     descInput.value = "";
@@ -52,34 +66,35 @@ const clearForm = () => {
 
     cmdInput.focus();
 
-};
+}
 
 
-// Add / Update Command
-const addData = () => {
+// Add / Update Note
+async function addData(){
 
     const cmd = cmdInput.value.trim();
     const desc = descInput.value.trim();
 
-    if (!cmd || !desc) {
+    if(!cmd || !desc){
 
         Swal.fire({
 
-            title: "Missing Information",
-            text: "Please fill all fields.",
-            icon: "warning",
+            title:"Missing Information",
 
-            width: 300,
+            text:"Please fill all fields.",
 
-            background: "rgba(20,25,40,.82)",
-            color: "#fff",
+            icon:"warning",
 
-            confirmButtonText: "OK",
+            width:300,
 
-            confirmButtonColor: "#3b82f6",
+            background:"rgba(20,25,40,.82)",
 
-            customClass: {
-                popup: "delete-popup"
+            color:"#fff",
+
+            confirmButtonColor:"#3b82f6",
+
+            customClass:{
+                popup:"delete-popup"
             }
 
         });
@@ -88,42 +103,74 @@ const addData = () => {
 
     }
 
-    // New Command
-    if (editIndex === -1) {
+        /* ==========================
+       ADD NEW NOTE
+    ========================== */
 
-        notes.unshift({
-            cmd,
-            desc
+    if(editIndex === -1){
+
+        await fetch(API_URL,{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+
+                cmd,
+                desc
+
+            })
+
         });
 
     }
 
-    // Update Existing Command
-    else {
+    /* ==========================
+       UPDATE NOTE
+    ========================== */
 
-        notes[editIndex] = {
-            cmd,
-            desc
-        };
+    else{
+
+        await fetch(`${API_URL}/${notes[editIndex].id}`,{
+
+            method:"PUT",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+
+                cmd,
+                desc
+
+            })
+
+        });
 
     }
 
-    save();
+    // Reload Notes From Server
+
+    await loadNotes();
+
+    // Reset Form
 
     clearForm();
 
-    render();
-
-};
+}
 
 /* ==========================================================
    4. EDIT FUNCTION
-   ========================================================== */
+========================================================== */
 
-// Load Selected Data Into Form
-const edit = (index) => {
+function edit(index){
 
     cmdInput.value = notes[index].cmd;
+
     descInput.value = notes[index].desc;
 
     editIndex = index;
@@ -131,57 +178,65 @@ const edit = (index) => {
     saveBtn.innerText = BTN_UPDATE;
 
     formCard.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
+
+        behavior:"smooth",
+
+        block:"start"
+
     });
 
     cmdInput.focus();
 
-};
+}
 
 
 /* ==========================================================
    5. DELETE FUNCTION
-   ========================================================== */
+========================================================== */
 
-// Delete Selected Command
-const del = (index) => {
+function del(index){
 
     Swal.fire({
 
-        title: "Delete Command?",
-        text: "This action cannot be undone.",
+        title:"Delete Command?",
 
-        icon: "warning",
+        text:"This action cannot be undone.",
 
-        width: 300,
+        icon:"warning",
 
-        background: "rgba(20,25,40,.82)",
-        color: "#fff",
+        width:300,
 
-        backdrop: "rgba(0,0,0,.45)",
+        background:"rgba(20,25,40,.82)",
 
-        showCancelButton: true,
+        color:"#fff",
 
-        confirmButtonText: "Delete",
-        cancelButtonText: "Cancel",
+        backdrop:"rgba(0,0,0,.45)",
 
-        confirmButtonColor: "#ef4444",
-        cancelButtonColor: "#334155",
+        showCancelButton:true,
 
-        reverseButtons: true,
+        confirmButtonText:"Delete",
+
+        cancelButtonText:"Cancel",
+
+        confirmButtonColor:"#ef4444",
+
+        cancelButtonColor:"#334155",
+
+        reverseButtons:true,
 
         customClass:{
             popup:"delete-popup"
         }
 
-    }).then((result)=>{
+    }).then(async(result)=>{
 
         if(!result.isConfirmed) return;
 
-        notes.splice(index,1);
+        await fetch(`${API_URL}/${notes[index].id}`,{
 
-        save();
+            method:"DELETE"
+
+        });
 
         if(editIndex === index){
 
@@ -189,19 +244,17 @@ const del = (index) => {
 
         }
 
-        render();
+        await loadNotes();
 
     });
 
-};
-
+}
 
 /* ==========================================================
-   6. TABLE RENDER
-   ========================================================== */
+   6. RENDER TABLE
+========================================================== */
 
-// Render All Commands
-const render = () => {
+function render(){
 
     const keyword = search.value.toLowerCase();
 
@@ -212,8 +265,11 @@ const render = () => {
     notes.forEach((note,index)=>{
 
         if(
+
             note.cmd.toLowerCase().includes(keyword) ||
+
             note.desc.toLowerCase().includes(keyword)
+
         ){
 
             found = true;
@@ -263,9 +319,7 @@ title="Delete">
         html = `
 <tr>
 
-<td
-colspan="3"
-class="empty">
+<td colspan="3" class="empty">
 
 <i
 class="fa-regular fa-folder-open"
@@ -283,13 +337,13 @@ No Commands Found
 
     tbody.innerHTML = html;
 
-};
+}
+
 
 /* ==========================================================
    7. KEYBOARD SHORTCUTS
-   ========================================================== */
+========================================================== */
 
-// Press Enter → Move to Description
 cmdInput.addEventListener("keydown",(e)=>{
 
     if(e.key==="Enter"){
@@ -302,7 +356,6 @@ cmdInput.addEventListener("keydown",(e)=>{
 
 });
 
-// Press Ctrl + Enter → Save
 descInput.addEventListener("keydown",(e)=>{
 
     if(e.ctrlKey && e.key==="Enter"){
@@ -318,10 +371,9 @@ descInput.addEventListener("keydown",(e)=>{
 
 /* ==========================================================
    8. PDF EXPORT
-   ========================================================== */
+========================================================== */
 
-// Download Notes as PDF
-const downloadPDF = () => {
+function downloadPDF(){
 
     if(notes.length===0){
 
@@ -361,22 +413,24 @@ const downloadPDF = () => {
         item.desc
     ]);
 
-    // Title
     doc.setFont("helvetica","bold");
     doc.setFontSize(20);
     doc.text("OS Command Notes",14,18);
 
-    // Subtitle
     doc.setFont("helvetica","normal");
     doc.setFontSize(10);
     doc.setTextColor(120);
+
     doc.text(
-        `Generated: ${new Date().toLocaleString()}`,
+
+        `Generated by Farhan: ${new Date().toLocaleString()}`,
+
         14,
+
         24
+
     );
 
-    // Table
     doc.autoTable({
 
         startY:30,
@@ -391,15 +445,12 @@ const downloadPDF = () => {
 
         headStyles:{
             fillColor:[31,41,55],
-            textColor:[255,255,255],
-            fontStyle:"bold"
+            textColor:[255,255,255]
         },
 
         styles:{
             fontSize:10,
-            cellPadding:4,
-            lineColor:[220,220,220],
-            lineWidth:.2
+            cellPadding:4
         },
 
         alternateRowStyles:{
@@ -410,51 +461,18 @@ const downloadPDF = () => {
             0:{cellWidth:12},
             1:{cellWidth:60},
             2:{cellWidth:"auto"}
-        },
-
-        didDrawPage:function(){
-
-            doc.setFontSize(9);
-
-            doc.setTextColor(120);
-
-            doc.text(
-
-                "Created by Farhan",
-
-                14,
-
-                doc.internal.pageSize.height-10
-
-            );
-
-            doc.text(
-
-                "Page " + doc.internal.getNumberOfPages(),
-
-                doc.internal.pageSize.width-30,
-
-                doc.internal.pageSize.height-10
-
-            );
-
         }
 
     });
 
     doc.save("OS_Command_Notes.pdf");
 
-};
+}
 
 
 /* ==========================================================
    9. INITIAL LOAD
-   ========================================================== */
+========================================================== */
 
-// Load Commands
-render();
-
-
-
-
+loadNotes();
 
