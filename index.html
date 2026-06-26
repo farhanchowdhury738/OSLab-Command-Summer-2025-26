@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Notes</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h2>OS Command Notes</h2>
+
+    <div class="card" id="formCard">
+
+        <label for="cmd">Command</label>
+
+        <input
+            type="text"
+            id="cmd"
+            placeholder="Example: pwd"
+            autocomplete="off"
+        >
+
+        <label for="desc">Description</label>
+
+        <textarea
+            id="desc"
+            placeholder="Write command description..."
+        ></textarea>
+
+        <button
+            id="saveBtn"
+            onclick="addData()"
+        >
+            Add
+        </button>
+
+    </div>
+
+    <input
+        type="text"
+        id="search"
+        placeholder="🔍 Search..."
+        onkeyup="render()"
+        autocomplete="off"
+    >
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th style="width:35%;">
+                        Command
+                    </th>
+
+                    <th style="width:45%;">
+                        Description
+                    </th>
+
+                    <th style="width:20%;">
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="tbody">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
