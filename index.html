@@ -1,98 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
+    <!-- ==========================================
+         Basic Meta
+    =========================================== -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Command Notes</title>
+
+    <title>OS Command Notes</title>
+
+    <!-- ==========================================
+         Google Font
+    =========================================== -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ==========================================
+         Font Awesome Icons
+    =========================================== -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
+    <!-- ==========================================
+         Main CSS
+    =========================================== -->
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
-<div class="container">
+    <!-- ==========================================
+         Main Container
+    =========================================== -->
 
-    <h2>OS Command Notes</h2>
+    <div class="container">
 
-    <div class="card" id="formCard">
+        <!-- Page Title -->
 
-        <label for="cmd">Command</label>
+        <h2>OS Command Notes</h2>
 
-        <input
-            type="text"
-            id="cmd"
-            placeholder="Example: pwd"
-            autocomplete="off"
-        >
+        <!-- ==========================================
+             Add / Update Form
+        =========================================== -->
 
-        <label for="desc">Description</label>
+        <div class="card" id="formCard">
 
-        <textarea
-            id="desc"
-            placeholder="Write command description..."
-        ></textarea>
+            <label for="cmd">Command</label>
 
-        <button
-            id="saveBtn"
-            onclick="addData()"
-        >
-            Add
-        </button>
+            <input
+                type="text"
+                id="cmd"
+                placeholder="Example: pwd"
+                autocomplete="off"
+            >
+
+            <label for="desc">Description</label>
+
+            <textarea
+                id="desc"
+                placeholder="Example: current directory"
+            ></textarea>
+
+            <button
+                id="saveBtn"
+                onclick="addData()"
+            >
+                Add
+            </button>
+
+        </div>
+
+        <!-- ==========================================
+             Search + Download
+        =========================================== -->
+
+        <div class="top-actions">
+
+            <!-- Search -->
+
+            <input
+                type="text"
+                id="search"
+                placeholder="🔍 Search..."
+                onkeyup="render()"
+                autocomplete="off"
+            >
+
+            <!-- Download PDF -->
+
+            <button
+                class="icon-btn download"
+                onclick="downloadPDF()"
+                title="Download PDF"
+            >
+                <i class="fa-solid fa-download"></i>
+            </button>
+
+        </div>
+
+        <!-- ==========================================
+             Command Table
+        =========================================== -->
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th style="width:35%;">
+                            Command
+                        </th>
+
+                        <th style="width:45%;">
+                            Description
+                        </th>
+
+                        <th style="width:20%;">
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="tbody">
+
+                    <!-- JavaScript will generate rows here -->
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </div>
 
-    <input
-        type="text"
-        id="search"
-        placeholder="🔍 Search..."
-        onkeyup="render()"
-        autocomplete="off"
-    >
+    <!-- ==========================================
+         PDF Library
+    =========================================== -->
 
-    <div class="table-wrapper">
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <table>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-            <thead>
-
-                <tr>
-
-                    <th style="width:35%;">
-                        Command
-                    </th>
-
-                    <th style="width:45%;">
-                        Description
-                    </th>
-
-                    <th style="width:20%;">
-                        Action
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="tbody">
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 
 
 
+    <!-- ==========================================
+         Main JavaScript
+    =========================================== -->
 
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="app.js"></script>
+    <script src="app.js"></script>
 
 </body>
+
 </html>
