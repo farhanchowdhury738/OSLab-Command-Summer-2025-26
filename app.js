@@ -13,7 +13,7 @@ const BTN_ADD = "Add";
 const BTN_UPDATE = "Update";
 
 // API URL
-const API_URL = "https://oslab-command-summer-2025-26.onrender.com/notes";
+const API_URL = "http://localhost:3000/notes";
 
 // DOM Elements
 const cmdInput = document.getElementById("cmd");

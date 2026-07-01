@@ -1,52 +1,242 @@
 [
   {
     "id": 1782452500001,
-    "cmd": "pwd",
-    "desc": "Show current directory"
+    "cmd": "uname -r",
+    "desc": "Displays the current Linux kernel version"
   },
   {
     "id": 1782452500002,
-    "cmd": "mkdir",
-    "desc": "Create new directory"
+    "cmd": "uname -m",
+    "desc": "Shows the system architecture (32-bit/64-bit)"
+  },
+  {
+    "id": 1782452500003,
+    "cmd": "pwd",
+    "desc": "Displays the current working directory"
   },
   {
     "id": 1782452500004,
-    "cmd": "touch FileName",
-    "desc": "Create empty file"
+    "cmd": "ls",
+    "desc": "Lists files and directories in the current directory"
   },
   {
     "id": 1782452500005,
-    "cmd": "cat > FileName",
-    "desc": "Create text file"
+    "cmd": "ls -a",
+    "desc": "Displays all files including hidden files"
   },
   {
     "id": 1782452500006,
-    "cmd": "cat FileName",
-    "desc": "View file content"
+    "cmd": "mkdir dirname",
+    "desc": "Creates a new directory"
   },
   {
     "id": 1782452500007,
-    "cmd": "cat File1 File2 > File3",
-    "desc": "Concatenate two files into a new file"
+    "cmd": "mkdir dir1 dir2 dir3",
+    "desc": "Creates multiple directories at once"
   },
   {
     "id": 1782452500008,
-    "cmd": "cp file1 file2",
-    "desc": "Copy file (Source → Destination)"
+    "cmd": "cd path",
+    "desc": "Changes the current directory"
   },
   {
     "id": 1782452500009,
-    "cmd": "mv filename",
-    "desc": "Move or rename file"
+    "cmd": "cd",
+    "desc": "Returns to the home directory"
   },
   {
     "id": 1782452500010,
-    "cmd": "rm filename",
-    "desc": "Remove/Delete file"
+    "cmd": "cd ..",
+    "desc": "Moves to the parent directory"
   },
   {
     "id": 1782452500011,
-    "cmd": "rmdir directory_name",
-    "desc": "Remove empty directory"
+    "cmd": "touch filename",
+    "desc": "Creates an empty file"
+  },
+  {
+    "id": 1782452500012,
+    "cmd": "cat > filename",
+    "desc": "Creates a new file and allows the user to enter text"
+  },
+  {
+    "id": 1782452500013,
+    "cmd": "cat filename",
+    "desc": "Displays the contents of a file"
+  },
+  {
+    "id": 1782452500014,
+    "cmd": "cat >> filename",
+    "desc": "Appends new content to an existing file"
+  },
+  {
+    "id": 1782452500015,
+    "cmd": "cat file1 >> file2",
+    "desc": "Appends the contents of one file to another"
+  },
+  {
+    "id": 1782452500016,
+    "cmd": "cat file1 file2 > file3",
+    "desc": "Concatenates multiple files into a new file"
+  },
+  {
+    "id": 1782452500017,
+    "cmd": "cp source destination",
+    "desc": "Copies files or directories"
+  },
+  {
+    "id": 1782452500018,
+    "cmd": "mv oldfile newfile",
+    "desc": "Renames or moves files/directories"
+  },
+  {
+    "id": 1782452500019,
+    "cmd": "rm filename",
+    "desc": "Deletes a file"
+  },
+  {
+    "id": 1782452500020,
+    "cmd": "rm *",
+    "desc": "Deletes all files in the current directory"
+  },
+  {
+    "id": 1782452500021,
+    "cmd": "rm -r directory",
+    "desc": "Deletes a directory and all its contents recursively"
+  },
+  {
+    "id": 1782452500022,
+    "cmd": "rmdir dirname",
+    "desc": "Removes an empty directory"
+  },
+  {
+    "id": 1782452500023,
+    "cmd": "rmdir -p dir1/dir2/dir3",
+    "desc": "Removes a directory and its empty parent directories"
+  },
+  {
+    "id": 1782452500024,
+    "cmd": "clear",
+    "desc": "Clears the terminal screen"
+  },
+  {
+    "id": 1782452500025,
+    "cmd": "history",
+    "desc": "Displays previously executed commands"
+  },
+  {
+    "id": 1782452500026,
+    "cmd": "man command",
+    "desc": "Shows the manual/help page for a command"
+  },
+  {
+    "id": 1782452500027,
+    "cmd": "echo text",
+    "desc": "Prints text on the screen or into a file"
+  },
+  {
+    "id": 1782452500028,
+    "cmd": "date",
+    "desc": "Displays the current date and time"
+  },
+  {
+    "id": 1782452500029,
+    "cmd": "whoami",
+    "desc": "Displays the current logged-in username"
+  },
+  {
+    "id": 1782452500030,
+    "cmd": "who",
+    "desc": "Shows currently logged-in users"
+  },
+  {
+    "id": 1782452500031,
+    "cmd": "hostname",
+    "desc": "Displays the system hostname"
+  },
+  {
+    "id": 1782452500032,
+    "cmd": "cal",
+    "desc": "Displays a calendar"
+  },
+  {
+    "id": 1782452500033,
+    "cmd": "file filename",
+    "desc": "Identifies the type of a file"
+  },
+  {
+    "id": 1782452500034,
+    "cmd": "head filename",
+    "desc": "Displays the first 10 lines of a file"
+  },
+  {
+    "id": 1782452500035,
+    "cmd": "tail filename",
+    "desc": "Displays the last 10 lines of a file"
+  },
+  {
+    "id": 1782452500036,
+    "cmd": "wc filename",
+    "desc": "Counts lines, words, and characters in a file"
+  },
+  {
+    "id": 1782452500037,
+    "cmd": "sort filename",
+    "desc": "Sorts lines of a file alphabetically"
+  },
+  {
+    "id": 1782452500038,
+    "cmd": "grep pattern filename",
+    "desc": "Searches for text inside a file"
+  },
+  {
+    "id": 1782452500039,
+    "cmd": "find path -name filename",
+    "desc": "Searches for files and directories"
+  },
+  {
+    "id": 1782452500040,
+    "cmd": "chmod permission file",
+    "desc": "Changes file permissions"
+  },
+  {
+    "id": 1782452500041,
+    "cmd": "sudo command",
+    "desc": "Executes a command with administrator privileges"
+  },
+  {
+    "id": 1782452500042,
+    "cmd": "apt command",
+    "desc": "Package management command in Ubuntu"
+  },
+  {
+    "id": 1782452500043,
+    "cmd": "nano filename",
+    "desc": "Opens a simple text editor in terminal"
+  },
+  {
+    "id": 1782452500044,
+    "cmd": "cd ~",
+    "desc": "Go to home directory"
+  },
+  {
+    "id": 1782452500045,
+    "cmd": "cd -",
+    "desc": "Return to previous directory"
+  },
+  {
+    "id": 1782452500046,
+    "cmd": "ls -l",
+    "desc": "Long listing format"
+  },
+  {
+    "id": 1782452500047,
+    "cmd": "ls -lh",
+    "desc": "Human-readable file sizes"
+  },
+  {
+    "id": 1782452500048,
+    "cmd": "ls -R",
+    "desc": "Recursively list directories"
   }
 ]
